@@ -1,0 +1,111 @@
+<p-toast></p-toast>
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog> 
+
+<div class="container">
+    <h2> <i class="pi pi-user-plus"></i> Ingrese un nuevo Empresa </h2>
+    <br>
+    <div class="container">
+        <p-accordion>
+            <p-accordionTab header="Nueva Empresa">
+                <div class="container-form">
+                    <form id="crearPerito">
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Nombre Empresa</label>
+                                    <input type="text" class="form-control" aria-describedby="nombre"
+                                        name="nombre" [(ngModel)]="nuevoPerito.nombre" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Razon Social</label>
+                                    <input type="text" class="form-control" aria-describedby="razon_social"
+                                        name="razon_social" [(ngModel)]="nuevoPerito.razon_social" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">NIT</label>
+                                    <input type="number" class="form-control" aria-describedby="nit"
+                                        name="nit" [(ngModel)]="nuevoPerito.nit" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Telefono</label>
+                                    <input type="number" class="form-control" aria-describedby="telefono"
+                                        name="telefono" [(ngModel)]="nuevoPerito.telefono" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Correo</label>
+                                    <input type="email" class="form-control" aria-describedby="correo"
+                                        name="correo" [(ngModel)]="nuevoPerito.correo" required>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </form>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="button" (click)="registrarEmpresa()" class="btn btn-primary">Registrar Empresa</button>
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+    <hr>
+    <br>
+</div>
+<div class="container">
+    <h2> Todos las Empresas </h2>
+    <br>
+    <p-table [value]="peritos" [scrollable]="true" scrollHeight="400px">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Razon Social</th>
+                <th>Nit</th>
+                <th>Telefono</th>
+                <th>Email</th>
+                <th> Menú</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-peritos>
+            <tr [pReorderableRow]="peritos.empresa_id">
+                <td>{{peritos.empresa_id}}</td>
+                <td>{{peritos.nombre}}</td>
+                <td>{{peritos.razon_social}}</td>
+                <td>{{peritos.nit}}</td>
+                <td>{{peritos.telefono}}</td>
+                <td>{{peritos.correo}}</td>
+                <td>
+                    <div class="col-md-6">
+                        <p-button icon="pi pi-pencil" (onClick)="modificarEmpresa(peritos)"
+                            styleClass="p-button-warning"></p-button>
+                    </div>
+                    <div class="col-md-6">
+                        <p-button icon="pi pi-trash" (onClick)="eliminarEmpresa(peritos.empresa_id)"
+                            styleClass="p-button-danger"></p-button>
+                    </div>
+                </td>
+
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+<br>
+<br>

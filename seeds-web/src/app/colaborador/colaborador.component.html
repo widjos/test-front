@@ -1,0 +1,98 @@
+<p-toast></p-toast>
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog> 
+
+<div class="container">
+    <h2> <i class="pi pi-user-plus"></i> Ingrese un nuevo Colaborador </h2>
+    <br>
+    <div class="container">
+        <p-accordion>
+            <p-accordionTab header="Nuevo Colaborador">
+                <div class="container-form">
+                    <form id="crearPerito">
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Nombre Colaborador</label>
+                                    <input type="text" class="form-control" aria-describedby="nombre"
+                                        name="nombre" [(ngModel)]="nuevoPerito.nombre" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Correo Electronico</label>
+                                    <input type="email" class="form-control" aria-describedby="correo"
+                                        name="correo" [(ngModel)]="nuevoPerito.correo" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Edad</label>
+                                    <input type="number" class="form-control" aria-describedby="edad"
+                                        name="edad" [(ngModel)]="nuevoPerito.edad" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Telefono</label>
+                                    <input type="number" class="form-control" aria-describedby="telefono"
+                                        name="telefono" [(ngModel)]="nuevoPerito.telefono" required>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="button" (click)="registrarColaborador()" class="btn btn-primary">Registrar Colaborador</button>
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+    <hr>
+    <br>
+</div>
+<div class="container">
+    <h2> Todos los Colaboradores </h2>
+    <br>
+    <p-table [value]="peritos" [scrollable]="true" scrollHeight="400px">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Edad</th>
+                <th>Telefono</th>
+                <th>Empresas</th>
+                <th> Menú</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-peritos>
+            <tr [pReorderableRow]="peritos.colaborador_id">
+                <td>{{peritos.colaborador_id}}</td>
+                <td>{{peritos.nombre}}</td>
+                <td>{{peritos.correo}}</td>
+                <td>{{peritos.edad}}</td>
+                <td>{{peritos.telefono}}</td>
+                <td>{{ obtenerEmpresas(peritos.contrato_colaborador)}}</td>
+                <td>
+                    <div class="col-md-6">
+                        <p-button icon="pi pi-pencil" (onClick)="modificarColaborador(peritos)"
+                            styleClass="p-button-warning"></p-button>
+                    </div>
+                    <div class="col-md-6">
+                        <p-button icon="pi pi-trash" (onClick)="eliminarColaborador(peritos.empresa_id)"
+                            styleClass="p-button-danger"></p-button>
+                    </div>
+                </td>
+
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+<br>
+<br>

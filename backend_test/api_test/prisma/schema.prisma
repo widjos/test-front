@@ -1,0 +1,118 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model pais {
+  pais_id Int @id @default(autoincrement())
+
+  nombre String @db.VarChar(100)
+  codigo Int
+
+  departamento_pais departamento[]
+  geografia_pais geografia[]
+
+  @@map("pais")
+}
+
+model departamento {
+  departamento_id Int @id @default(autoincrement())
+
+  nombre String @db.VarChar(100)
+  id_pais Int
+  pais_id pais @relation(fields: [id_pais], references: [pais_id], onDelete: Cascade, onUpdate: Cascade)
+
+  municipios_departamento municipio[]
+  geografia_departamento geografia[]
+
+  @@map("departamento")
+}
+
+model municipio {
+
+  municipio_id Int @id @default(autoincrement())
+
+  nombre String @db.VarChar(100)
+
+  id_departamento Int
+  departemento_id departamento  @relation(fields: [id_departamento], references: [departamento_id], onDelete: Cascade, onUpdate: Cascade)
+
+  geografia_municipio geografia[]
+
+  @@map("municipio")
+}
+
+model empresa {
+
+  empresa_id Int @id @default(autoincrement())
+
+  nombre String @db.VarChar(100)
+  razon_social String @db.VarChar(100)
+  nit Int
+  correo String @db.VarChar(100)
+  telefono Int
+
+  geografia_empresa  geografia[]
+  contrato_empresa contrato[]
+
+  @@map("empresa")
+
+}
+
+model geografia {
+
+  geografia_id Int @id @default(autoincrement())
+
+  id_empresa Int
+  empresa_id empresa @relation(fields: [id_empresa], references: [empresa_id], onDelete: Cascade, onUpdate: Cascade )
+  
+  id_municipio Int
+  municipio_id municipio @relation(fields: [id_municipio], references: [municipio_id], onDelete: Cascade, onUpdate: Cascade)
+  
+  id_departamento Int
+  departamento departamento @relation(fields: [id_departamento], references: [departamento_id], onDelete: Cascade, onUpdate: Cascade)
+  
+  id_pais Int
+  pais_id pais @relation(fields: [id_pais], references: [pais_id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@map("geografia")
+}
+
+model colaborador {
+
+  colaborador_id Int @id @default(autoincrement())
+
+  nombre String @db.VarChar(100)
+  telefono Int
+  edad Int 
+  correo String @db.VarChar(100)
+ 
+  contrato_colaborador contrato[]
+
+  @@map("colaborador")
+}
+
+model contrato {
+
+  contrato_id Int @id @default(autoincrement())
+
+  id_empresa Int
+  empresa_id empresa @relation(fields: [id_empresa], references: [empresa_id], onDelete: Cascade, onUpdate: Cascade)
+
+  id_colaborador Int 
+  colaborador_id colaborador @relation(fields: [id_colaborador], references: [colaborador_id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@map("contrato")
+}
+

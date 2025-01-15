@@ -1,0 +1,80 @@
+<p-toast></p-toast>
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog> 
+
+<div class="container">
+    <h2> <i class="pi pi-user-plus"></i> Ingrese un nuevo Departamento </h2>
+    <br>
+    <div class="container">
+        <p-accordion>
+            <p-accordionTab header="Nuevo Departamento">
+                <div class="container-form">
+                    <form id="crearPerito">
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Nombre Departamento</label>
+                                    <input type="text" class="form-control" aria-describedby="nombre"
+                                        name="nombre" [(ngModel)]="nuevoPerito.nombre" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Id Pais</label>
+                                    <br>
+                                <p-dropdown id="id_pais" name="id_pais" optionValue="pais_id"
+                                    [options]="departamentoList" [(ngModel)]="nuevoPerito.id_pais" optionLabel="nombre"
+                                    aria-required="true">
+                                </p-dropdown>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </form>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="button" (click)="registrarPerito()" class="btn btn-primary">Registrar Departamento</button>
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+    <hr>
+    <br>
+</div>
+<div class="container">
+    <h2> Todos los Departamentos </h2>
+    <br>
+    <p-table [value]="peritos" [scrollable]="true" scrollHeight="400px">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Pais</th>
+                <th> Menú</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-peritos>
+            <tr [pReorderableRow]="peritos.departamento_id">
+                <td>{{peritos.departamento_id}}</td>
+                <td>{{peritos.nombre}}</td>
+                <td>{{peritos.pais_id.nombre}}</td>
+                <td>
+                    <div class="col-md-6">
+                        <p-button icon="pi pi-pencil" (onClick)="modificarPerito(peritos)"
+                            styleClass="p-button-warning"></p-button>
+                    </div>
+                    <div class="col-md-6">
+                        <p-button icon="pi pi-trash" (onClick)="eliminarPerito(peritos.pais_id)"
+                            styleClass="p-button-danger"></p-button>
+                    </div>
+                </td>
+
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+<br>
+<br>

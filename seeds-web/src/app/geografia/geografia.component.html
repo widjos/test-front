@@ -1,0 +1,116 @@
+<p-toast></p-toast>
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog> 
+
+<div class="container">
+    <h2> <i class="pi pi-user-plus"></i> Ingrese una nueva Geografia </h2>
+    <br>
+    <div class="container">
+        <p-accordion>
+            <p-accordionTab header="Nueva Geografia de Empresa">
+                <div class="container-form">
+                    <form id="crearPerito">
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Empresa</label>
+                                    <br>
+                                    <p-dropdown id="id_empresa" name="id_empresa" optionValue="empresa_id"
+                                        [options]="listEmpresas" [(ngModel)]="nuevoPerito.id_empresa" optionLabel="nombre"
+                                        aria-required="true">
+                                    </p-dropdown>
+                                    <!-- <input type="number" class="form-control" aria-describedby="id_empresa"
+                                        name="id_empresa" [(ngModel)]="nuevoPerito.id_empresa" required> -->
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Municipio</label>
+                                    <br>
+                                    <!-- <input type="number" class="form-control" aria-describedby="id_municipio"
+                                        name="id_municipio" [(ngModel)]="nuevoPerito.id_municipio" required> -->
+                                    <p-dropdown id="id_municipio" name="id_municipio" optionValue="municipio_id"
+                                        [options]="listMuicipios" [(ngModel)]="nuevoPerito.id_municipio" optionLabel="nombre"
+                                        aria-required="true">
+                                    </p-dropdown>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Departamento</label>
+                                    <br>
+                                    <p-dropdown id="id_departamento" name="id_departamento" optionValue="departamento_id"
+                                        [options]="listDepartamento" [(ngModel)]="nuevoPerito.id_departamento" optionLabel="nombre"
+                                        aria-required="true">
+                                    </p-dropdown>
+                                    <!-- <input type="number" class="form-control" aria-describedby="id_departamento"
+                                        name="id_departamento" [(ngModel)]="nuevoPerito.id_departamento" required> -->
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Pais</label>
+                                    <br>
+                                    <p-dropdown id="id_pais" name="id_pais" optionValue="pais_id"
+                                        [options]="listPais" [(ngModel)]="nuevoPerito.id_pais" optionLabel="nombre"
+                                        aria-required="true">
+                                    </p-dropdown>
+                                    <!-- <input type="number" class="form-control" aria-describedby="id_pais"
+                                        name="id_pais" [(ngModel)]="nuevoPerito.id_pais" required> -->
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="button" (click)="registrarGeografia()" class="btn btn-primary">Registrar Geografia</button>
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+    <hr>
+    <br>
+</div>
+<div class="container">
+    <h2> Todos las Geografia </h2>
+    <br>
+    <p-table [value]="peritos" [scrollable]="true" scrollHeight="400px">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Id</th>
+                <th>Empresa</th>
+                <th>Municipio</th>
+                <th>Departamento</th>
+                <th>Pais</th>
+                <th> Menú</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-peritos>
+            <tr [pReorderableRow]="peritos.geografia_id">
+                <td>{{peritos.geografia_id}}</td>
+                <td>{{peritos.empresa_id.nombre}}</td>
+                <td>{{peritos.municipio_id.nombre}}</td>
+                <td>{{peritos.departamento.nombre}}</td>
+                <td>{{peritos.pais_id.nombre}}</td>
+                <td>
+                    <div class="col-md-6">
+                        <p-button icon="pi pi-pencil" (onClick)="modificarGeografia(peritos)"
+                            styleClass="p-button-warning"></p-button>
+                    </div>
+                    <div class="col-md-6">
+                        <p-button icon="pi pi-trash" (onClick)="eliminarGeografia(peritos.geografia_id)"
+                            styleClass="p-button-danger"></p-button>
+                    </div>
+                </td>
+
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+<br>
+<br>
