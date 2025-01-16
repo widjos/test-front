@@ -1,27 +1,33 @@
 import 'dart:ffi';
 
 class Pais {
-  final int id;
+  final int paisId;
   final String nombre;
   final int? codigo;
 
   Pais({
-    required this.id,
+    required this.paisId,
     required this.nombre,
     required this.codigo,
   });
 
   factory Pais.fromJson(Map<String, dynamic> json) {
     return Pais(
-        id: json['pais_id'], nombre: json['nombre'], codigo: json['codigo']);
+        paisId: json['pais_id'],
+        nombre: json['nombre'],
+        codigo: json['codigo']);
   }
+
+  Map<String, dynamic> toJson() =>
+      {"pais_id": paisId, "nombre": nombre, "codigo": codigo};
+
   Pais copyWith({
-    int? id,
+    int? paisId,
     String? nombre,
     int? codigo,
   }) =>
       Pais(
-        id: id ?? this.id,
+        paisId: paisId ?? this.paisId,
         nombre: nombre ?? this.nombre,
         codigo: codigo,
       );

@@ -9,6 +9,9 @@ final appRouteProvider = Provider<GoRouter>((ref) {
         path: '/empresa', builder: (context, state) => const EmpresaScreen()),
     GoRoute(
         path: '/employee', builder: (context, state) => const EmployeeScreen()),
-    GoRoute(path: '/pais', builder: (context, state) => const PaisScreen())
+    GoRoute(path: '/pais', builder: (context, state) => const PaisScreen()),
+    GoRoute(
+        path: '/pais_create',
+        builder: (context, state) => const CreatePaisScreen())
   ]);
 });
